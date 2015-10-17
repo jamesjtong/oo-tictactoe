@@ -16,6 +16,10 @@ class Board
     end
   end
 
+  def mark_taken(x_coordinate, y_coordinate, player)
+    grid[x_coordinate][y_coordinate].owned_by = player
+  end
+
   def available_spaces_remaining
     available_spaces_remaining_array = []
     grid.each_with_index do |row, i|
@@ -27,6 +31,9 @@ class Board
     end
 
     available_spaces_remaining_array
+  end
+
+  def check_for_winner
   end
 
 end

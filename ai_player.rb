@@ -7,7 +7,7 @@ class AiPlayer
 
   def make_move
     x_coordinate, y_coordinate = find_random_location
-    @board.grid[x_coordinate][y_coordinate].owned_by = "ai"
+    @board.mark_taken(x_coordinate, y_coordinate, "ai")
   end
 
   private

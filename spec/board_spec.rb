@@ -1,6 +1,11 @@
 require_relative 'spec_helper'
 
 describe Board do
+  let!(:clean_board) do
+    board = Board.new("4x4")
+    board.set_up_board
+    board
+  end
 
   describe "#set_up_board" do
     context "when board size is the default 3x3" do
@@ -21,11 +26,6 @@ describe Board do
 
   describe "#available_spaces_remaining" do
     context "when the board is empty" do
-      let!(:clean_board) do
-        board = Board.new("4x4")
-        board.set_up_board
-        board
-      end
       it "outputs all board locations" do
         expect(clean_board.available_spaces_remaining.length).to eq(16)
       end
@@ -44,6 +44,14 @@ describe Board do
       it "outputs the non-owned board locations" do
         expect(partially_filled_board.available_spaces_remaining.length).to eq(13)
       end
+    end
+  end
+
+  describe "#mark_taken" do
+    it "changes the owned_by state of board_location" do
+      expect(clean_board.grid[1][1].owned_by).to eq(nil)
+      clean_board.mark_taken(1,1,"ai")
+      expect(clean_board.grid[1][1].owned_by).to eq("ai")
     end
   end
 

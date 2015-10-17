@@ -19,5 +19,12 @@ class TerminalInterface
       EOT
     end
 
+    def ask_player_to_make_move
+      "It is the player's turn; make your move"
+    end
+
+    def output_board
+    end
+
   end
 end

@@ -6,5 +6,6 @@ require_relative "../ai_player"
 require_relative "../human_player"
 require_relative "../grid_parser"
 require_relative "../terminal_interface"
+require "pry"
 
 Game.new

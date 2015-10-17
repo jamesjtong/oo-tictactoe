@@ -2,11 +2,15 @@ require_relative 'spec_helper'
 
 describe AiPlayer do
   describe "#make_move" do
+    let!(:board) do
+      board = Board.new.tap { |b| b.set_up_board }
+    end
+
+    let!(:ai_player) do
+      ai_player = AiPlayer.new.tap { |player| player.start_new_game(board) }
+    end
+
     it "changes a board location to be owned by the ai" do
-      ai_player = AiPlayer.new
-      board = Board.new
-      board.set_up_board
-      ai_player.start_new_game(board)
       expect{ai_player.make_move}.to change{board.available_spaces_remaining.length}.by(-1)
     end
   end
