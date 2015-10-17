@@ -3,18 +3,30 @@ class Board
   attr_accessor :grid
 
   def initialize(grid_size_string="3x3")
-    @width, @height = parse_grid_width_height(grid_size_string)
-    @grid = []
-    set_up_board
+    @width, @height = GridParser.new.parse_grid_width_height(grid_size_string)
+    self.grid = []
   end
 
-  private
   def set_up_board
     width.times do |i|
-      grid << [BoardLocation.new]
-      height.times do |n|
-        grid[n] << [BoardLocation.new]
+      grid << []
+      height.times do |h|
+        grid[i] << BoardLocation.new
       end
     end
   end
+
+  def available_spaces_remaining
+    available_spaces_remaining_array = []
+    grid.each_with_index do |row, i|
+      column_select_index = -1
+      row.each do |board_location|
+        column_select_index += 1
+        available_spaces_remaining_array << [i, column_select_index] if board_location.empty?
+      end
+    end
+
+    available_spaces_remaining_array
+  end
+
 end

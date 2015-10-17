@@ -1,4 +1,4 @@
-require_relative '../ai'
+require_relative '../ai_player'
 require_relative '../board'
 require_relative '../board_location'
 require_relative '../game'
