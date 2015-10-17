@@ -9,12 +9,6 @@ class Board
   end
 
   private
-  def parse_grid_width_height(grid_size_string)
-    grid_size_string[/^\d*/]
-    grid_size_string[/\d*$/]
-    [width, height]
-  end
-
   def set_up_board
     width.times do |i|
       grid << [BoardLocation.new]

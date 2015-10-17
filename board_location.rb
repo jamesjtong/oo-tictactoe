@@ -4,5 +4,4 @@ class BoardLocation
   def initialize
   end
 
-
 end

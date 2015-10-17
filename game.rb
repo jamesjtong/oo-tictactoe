@@ -1,6 +1,8 @@
 require_relative "board"
 require_relative "board_location"
 require_relative "win_checker"
+require_relative "ai"
+require_relative "grid_parser"
 class Game
   def initialize
     intro

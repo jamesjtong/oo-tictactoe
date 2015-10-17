@@ -1,0 +1,7 @@
+require_relative '../ai'
+require_relative '../board'
+require_relative '../board_location'
+require_relative '../game'
+require_relative '../win_checker'
+require_relative '../grid_parser'
+require 'pry'
