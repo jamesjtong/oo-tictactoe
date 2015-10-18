@@ -50,6 +50,7 @@ describe WinChecker do
       end
 
       it "returns true" do
+        expect(WinChecker.check(board_with_a_win)).to eq true
       end      
     end
 

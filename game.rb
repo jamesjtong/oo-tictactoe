@@ -2,26 +2,17 @@ class Game
   attr_accessor :human_player, :ai_player, :turn_owner
   def initialize
     TerminalInterface.intro
-
-    size_of_board = gets.chomp 
-
-    selected_symbol = ask_for_symbol
-
-    @human_player = HumanPlayer.new(selected_symbol)
-    
-    @human_player.symbol == "X" ? selected_symbol = "O" : selected_symbol = "X"
-    @ai_player = AiPlayer.new(selected_symbol)
-
-    setup_new_game(size_of_board)
+    setup_new_game
   end
 
   def start_new_game
     goes_first = randomize_who_goes_first
-    if goes_first == "ai"
+    if goes_first == ai_player
       self.turn_owner = @ai_player
     else
       self.turn_owner = @human_player
-    end  
+    end
+    TerminalInterface.announce_who_goes_first(turn_owner)
 
     @board.output_board
     turn_owner.make_move
@@ -33,8 +24,18 @@ class Game
     [ai_player, human_player].sample
   end
 
-  def setup_new_game(board_size)
-    @board = Board.new(board_size)
+  def setup_new_game
+    TerminalInterface.ask_for_size_of_board
+
+    size_of_board = gets.chomp 
+    selected_symbol = ask_for_symbol
+
+    @human_player = HumanPlayer.new(selected_symbol)
+    @human_player.symbol == "X" ? selected_symbol = "O" : selected_symbol = "X"
+    @ai_player = AiPlayer.new(selected_symbol)
+
+
+    @board = Board.new(size_of_board)
     @board.set_up_board
     human_player.start_new_game(@board)
     ai_player.start_new_game(@board)
@@ -43,9 +44,20 @@ class Game
 
   def next_turn
     check_for_winner
-    switch_turns
-    turn_owner.make_move
-    next_turn unless game_over?
+
+    if check_for_winner
+      winner = WinChecker.get_winner
+      TerminalInterface.announce_winner(winner)
+      TerminalInterface.ask_to_play_again
+      response = gets.chomp.downcase
+      if response == "y" || response == "yes"
+        setup_new_game
+      end
+    else
+      switch_turns
+      turn_owner.make_move
+      next_turn
+    end
   end
 
   def game_over?
@@ -68,6 +80,6 @@ class Game
   end
 
   def check_for_winner
-    WinChecker.check(@board)
+    check = WinChecker.check(@board)
   end
 end

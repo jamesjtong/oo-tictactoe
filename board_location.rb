@@ -1,10 +1,13 @@
 class BoardLocation
-  attr_accessor :owned_by, :symbol, :grid, :x_coordinate, :y_coordinate
+  attr_accessor :owned_by, :symbol, :grid, :x_coordinate, :y_coordinate, :board_width, :board_height
 
-  def initialize(grid, x, y)
+  def initialize(grid, x, y, board_width, board_height)
     self.grid = grid
     self.x_coordinate = x
     self.y_coordinate = y
+    self.board_width = board_width
+    self.board_height = board_height
+
     return self
   end
 
@@ -13,41 +16,75 @@ class BoardLocation
   end
 
   def top
-    return VoidLocation.new if x_coordinate-1 < 0
-    grid[x_coordinate-1][y_coordinate]
+    attempted_x_coordinate = x_coordinate-1
+    attempted_y_coordinate = y_coordinate
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[attempted_x_coordinate][attempted_y_coordinate]
   end
 
   def top_left
-    return VoidLocation.new if x_coordinate-1 < 0
-    return VoidLocation.new if y_coordinate-1 < 0
-    grid[x_coordinate-1][y_coordinate-1]
+    attempted_x_coordinate = x_coordinate-1
+    attempted_y_coordinate = y_coordinate-1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[attempted_x_coordinate][attempted_y_coordinate]
   end
 
   def top_right
-    return VoidLocation.new if x_coordinate-1 < 0
-    grid[x_coordinate-1][y_coordinate+1]
+    attempted_x_coordinate = x_coordinate-1
+    attempted_y_coordinate = y_coordinate+1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[attempted_x_coordinate][attempted_y_coordinate]
   end
 
   def left
-    return VoidLocation.new if y_coordinate-1 < 0
-    grid[x_coordinate][y_coordinate-1]
+    attempted_x_coordinate = x_coordinate
+    attempted_y_coordinate = y_coordinate-1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[attempted_x_coordinate][attempted_y_coordinate]
   end
 
   def right
-    grid[x_coordinate][y_coordinate+1]
+    attempted_x_coordinate = x_coordinate
+    attempted_y_coordinate = y_coordinate+1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[attempted_x_coordinate][attempted_y_coordinate]
   end
 
   def bottom
-    grid[x_coordinate+1][y_coordinate]
+    attempted_x_coordinate = x_coordinate+1
+    attempted_y_coordinate = y_coordinate
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[x_coordinate+1][attempted_y_coordinate]
   end
 
   def bottom_left
-    return VoidLocation.new if y_coordinate-1 < 0
-    grid[x_coordinate+1][y_coordinate-1]
+    attempted_x_coordinate = x_coordinate+1
+    attempted_y_coordinate = y_coordinate-1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[x_coordinate+1][attempted_y_coordinate]
   end
 
   def bottom_right
-    grid[x_coordinate+1][y_coordinate+1]
+    attempted_x_coordinate = x_coordinate+1
+    attempted_y_coordinate = y_coordinate+1
+    return VoidLocation.new if outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+
+    grid[x_coordinate+1][attempted_y_coordinate]
+  end
+
+  def outside_board_bounds?(attempted_x_coordinate, attempted_y_coordinate)
+    return true if attempted_x_coordinate >= board_width
+    return true if attempted_y_coordinate >= board_height
+    return true if attempted_x_coordinate < 0
+    return true if attempted_y_coordinate < 0
+    false
   end
 
 end

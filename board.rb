@@ -3,7 +3,7 @@ class Board
   attr_accessor :grid, :last_spot_taken
 
   def initialize(grid_size_string="3x3")
-    @width, @height = GridParser.new.parse_grid_width_height(grid_size_string)
+    @height, @width = GridParser.new.parse_grid_width_height(grid_size_string)
     self.grid = []
   end
 
@@ -11,7 +11,7 @@ class Board
     width.times do |i|
       grid << []
       height.times do |h|
-        grid[i] << BoardLocation.new(grid, i, h)
+        grid[i] << BoardLocation.new(grid, i, h, width, height)
       end
     end
   end

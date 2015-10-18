@@ -12,13 +12,18 @@ class AiPlayer
 
   def make_move
     x_coordinate, y_coordinate = find_random_location
+    #switch direction, to make user interface more natural
     @board.mark_taken(x_coordinate, y_coordinate, self)
-    puts "\nai just marked [#{x_coordinate}, #{y_coordinate}]"
+    puts "\n#{self} just marked [#{y_coordinate}, #{x_coordinate}]"
     board.output_board
   end
 
   private
   def find_random_location
     @board.available_spaces_remaining.sample
+  end
+
+  def to_s
+    "The AI Player"
   end
 end

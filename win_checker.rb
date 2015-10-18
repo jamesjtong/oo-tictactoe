@@ -7,6 +7,7 @@ class WinChecker
 
   def self.check_area_around_last_spot_for_win(last_spot_taken)
     lst = last_spot_taken
+    begin
     winning_map = [
       [lst, lst.top, lst.top && lst.top.top],
       [lst, lst.top_left, lst.top_left && lst.top_left.top_left],
@@ -21,14 +22,21 @@ class WinChecker
       [lst, lst.top_left, lst.bottom_right],
       [lst, lst.top_right, lst.bottom_left]
     ]
-
+    
+    rescue
+      binding.pry
+    end
     filtered_winning_map = filter_out_void_and_null_win_maps(winning_map)
 
     filtered_winning_map.any? do |potential_win_location|
       symbols_for_location = potential_win_location.map(&:symbol)
-      symbols_for_location.uniq.length == 1 && symbols_for_location.uniq[0] != nil
-    end
+      if symbols_for_location.uniq.length == 1 && symbols_for_location.uniq[0] != nil
+        @winner = potential_win_location[0].owned_by
+      end
 
+      symbols_for_location.uniq.length == 1 && symbols_for_location.uniq[0] != nil
+
+    end
   end
 
   def self.filter_out_void_and_null_win_maps(potential_winning_map)
@@ -39,5 +47,9 @@ class WinChecker
     end
 
     filtered_by_valid_length_maps.select {|m| m.length === 3}
+  end
+
+  def self.get_winner
+    @winner
   end
 end
