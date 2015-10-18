@@ -23,7 +23,12 @@ class TerminalInterface
       "It is the player's turn; make your move"
     end
 
+    def ask_for_symbol
+      puts "What symbol do you want to be 'X' or 'O'? Enter 'x' for 'X' or 'y' for 'Y'"
+    end
+
     def output_board
+
     end
 
   end

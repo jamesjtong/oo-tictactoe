@@ -1,11 +1,16 @@
 class Game
   attr_accessor :human_player, :ai_player, :turn_owner
   def initialize
-    @human_player = HumanPlayer.new
-    @ai_player = AiPlayer.new
     TerminalInterface.intro
 
-    setup_new_game(gets.chomp)
+    size_of_board = gets.chomp 
+
+    selected_symbol = ask_for_symbol
+
+    @human_player = HumanPlayer.new(selected_symbol)
+    @ai_player = AiPlayer.new(selected_symbol)
+
+    setup_new_game(size_of_board)
   end
 
   def start_new_game
@@ -17,7 +22,6 @@ class Game
     end  
 
     turn_owner.make_move
-    @board.check_for_winner
     next_turn
   end
 
@@ -35,6 +39,7 @@ class Game
   end
 
   def next_turn
+    @board.check_for_winner
     switch_turns
     turn_owner.make_move
     next_turn unless game_over?
@@ -48,4 +53,13 @@ class Game
     turn_owner == ai_player ? self.turn_owner = human_player : self.turn_owner = ai_player
   end
 
+  def ask_for_symbol
+    TerminalInterface.ask_for_symbol
+    selected_symbol = gets.chomp.upcase
+
+    if !["X","O"].include? selected_symbol
+      ask_for_symbol
+    end
+    selected_symbol
+  end
 end

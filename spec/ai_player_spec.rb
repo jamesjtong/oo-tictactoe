@@ -7,7 +7,7 @@ describe AiPlayer do
     end
 
     let!(:ai_player) do
-      ai_player = AiPlayer.new.tap { |player| player.start_new_game(board) }
+      ai_player = AiPlayer.new("o").tap { |player| player.start_new_game(board) }
     end
 
     it "changes a board location to be owned by the ai" do

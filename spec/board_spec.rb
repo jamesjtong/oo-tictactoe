@@ -48,10 +48,11 @@ describe Board do
   end
 
   describe "#mark_taken" do
+    let(:ai_player) { AiPlayer.new("X")}
     it "changes the owned_by state of board_location" do
       expect(clean_board.grid[1][1].owned_by).to eq(nil)
-      clean_board.mark_taken(1,1,"ai")
-      expect(clean_board.grid[1][1].owned_by).to eq("ai")
+      clean_board.mark_taken(1,1,ai_player)
+      expect(clean_board.grid[1][1].owned_by).to eq(ai_player)
     end
   end
 

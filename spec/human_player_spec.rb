@@ -7,7 +7,7 @@ describe HumanPlayer do
     end
 
     let!(:human_player) do
-      human_player = HumanPlayer.new.tap { |player| player.start_new_game(board) }
+      human_player = HumanPlayer.new("x").tap { |player| player.start_new_game(board) }
     end
 
     it "changes a board location to be owned by the human" do

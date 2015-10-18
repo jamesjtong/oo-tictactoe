@@ -1,5 +1,5 @@
 class BoardLocation
-  attr_accessor :owned_by
+  attr_accessor :owned_by, :symbol
 
   def initialize
     return self

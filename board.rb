@@ -18,6 +18,7 @@ class Board
 
   def mark_taken(x_coordinate, y_coordinate, player)
     grid[x_coordinate][y_coordinate].owned_by = player
+    grid[x_coordinate][y_coordinate].symbol = player.symbol
   end
 
   def available_spaces_remaining
@@ -34,6 +35,10 @@ class Board
   end
 
   def check_for_winner
+  end
+
+  def output_board
+    Term
   end
 
 end
