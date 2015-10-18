@@ -5,9 +5,6 @@ describe WinChecker do
   let(:human_player) { HumanPlayer.new("O")}
 
   describe ".check" do
-    it "checks for a win" do
-
-    end
     context "when there is no current 3 in a row win on the board" do
       let(:clean_board) do
         board = Board.new("4x4")
@@ -35,8 +32,6 @@ describe WinChecker do
           expect(WinChecker.check(partially_filled_board)).to eq false
         end
       end
-
-
     end
 
     context "when there is a current 3 in a row win on the horizontally" do
@@ -53,6 +48,5 @@ describe WinChecker do
         expect(WinChecker.check(board_with_a_win)).to eq true
       end      
     end
-
   end
 end

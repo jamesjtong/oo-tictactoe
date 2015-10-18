@@ -14,5 +14,4 @@ describe AiPlayer do
       expect{ai_player.make_move}.to change{board.available_spaces_remaining.length}.by(-1)
     end
   end
-
 end

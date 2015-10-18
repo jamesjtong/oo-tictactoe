@@ -44,6 +44,10 @@ class Board
     end
   end
 
+  def find_random_available_location
+    available_spaces_remaining.sample
+  end
+
   private
   def symbol_to_print(board_location)
     board_location.symbol.nil? ? "| |" : "|#{board_location.symbol}|"
