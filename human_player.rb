@@ -1,14 +1,4 @@
-class HumanPlayer
-  attr_reader :board
-  attr_accessor :symbol
-  def initialize(symbol)
-    self.symbol = symbol
-  end
-
-  def start_new_game(board)
-    @board = board
-  end
-
+class HumanPlayer < Player
   def make_move
     TerminalInterface.ask_player_to_make_move
     x,y = gets.chomp.split(",").map(&:to_i)
