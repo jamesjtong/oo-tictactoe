@@ -8,6 +8,8 @@ class Game
     selected_symbol = ask_for_symbol
 
     @human_player = HumanPlayer.new(selected_symbol)
+    
+    @human_player.symbol == "X" ? selected_symbol = "O" : selected_symbol = "X"
     @ai_player = AiPlayer.new(selected_symbol)
 
     setup_new_game(size_of_board)
@@ -40,7 +42,7 @@ class Game
   end
 
   def next_turn
-    @board.check_for_winner
+    check_for_winner
     switch_turns
     turn_owner.make_move
     next_turn unless game_over?
@@ -63,5 +65,9 @@ class Game
       ask_for_symbol
     end
     selected_symbol
+  end
+
+  def check_for_winner
+    WinChecker.check(@board)
   end
 end

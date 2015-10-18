@@ -1,6 +1,6 @@
 class Board
   attr_reader :width, :height
-  attr_accessor :grid
+  attr_accessor :grid, :last_spot_taken
 
   def initialize(grid_size_string="3x3")
     @width, @height = GridParser.new.parse_grid_width_height(grid_size_string)
@@ -11,7 +11,7 @@ class Board
     width.times do |i|
       grid << []
       height.times do |h|
-        grid[i] << BoardLocation.new
+        grid[i] << BoardLocation.new(grid, i, h)
       end
     end
   end
@@ -19,6 +19,7 @@ class Board
   def mark_taken(x_coordinate, y_coordinate, player)
     grid[x_coordinate][y_coordinate].owned_by = player
     grid[x_coordinate][y_coordinate].symbol = player.symbol
+    self.last_spot_taken = grid[x_coordinate][y_coordinate]
   end
 
   def available_spaces_remaining
@@ -32,9 +33,6 @@ class Board
     end
 
     available_spaces_remaining_array
-  end
-
-  def check_for_winner
   end
 
   def output_board

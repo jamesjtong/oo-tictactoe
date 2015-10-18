@@ -7,6 +7,9 @@ describe Board do
     board
   end
 
+  let(:ai_player) { AiPlayer.new("X")}
+  let(:human_player) { HumanPlayer.new("X")}
+
   describe "#set_up_board" do
     context "when board size is the default 3x3" do
       it "sets up the board correctly according to grid specifications" do
@@ -35,9 +38,9 @@ describe Board do
       let!(:partially_filled_board) do
         board = Board.new("4x4")
         board.set_up_board
-        board.grid[0][0].owned_by = "player"
-        board.grid[0][1].owned_by = "ai"
-        board.grid[0][2].owned_by = "ai"
+        board.grid[0][0].owned_by = human_player
+        board.grid[0][1].owned_by = ai_player
+        board.grid[0][2].owned_by = ai_player
         board
       end
 
@@ -48,7 +51,6 @@ describe Board do
   end
 
   describe "#mark_taken" do
-    let(:ai_player) { AiPlayer.new("X")}
     it "changes the owned_by state of board_location" do
       expect(clean_board.grid[1][1].owned_by).to eq(nil)
       clean_board.mark_taken(1,1,ai_player)
