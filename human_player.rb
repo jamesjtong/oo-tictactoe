@@ -10,8 +10,10 @@ class HumanPlayer
   end
 
   def make_move
-    puts TerminalInterface.ask_player_to_make_move
+    TerminalInterface.ask_player_to_make_move
     x,y = gets.chomp.split(",").map(&:to_i)
     board.mark_taken(x, y, self)
+    puts "\nyou just marked [#{x}, #{y}]"
+    board.output_board
   end
 end

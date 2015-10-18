@@ -55,5 +55,4 @@ describe Board do
       expect(clean_board.grid[1][1].owned_by).to eq(ai_player)
     end
   end
-
 end

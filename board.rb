@@ -38,7 +38,17 @@ class Board
   end
 
   def output_board
-    Term
+    grid.each_with_index do |row_layer, row_index|
+      puts "\n"
+      row_layer.each_with_index do |board_location, column_index|
+        print symbol_to_print(board_location)
+      end
+    end
+  end
+
+  private
+  def symbol_to_print(board_location)
+    board_location.symbol.nil? ? "| |" : "|#{board_location.symbol}|"
   end
 
 end

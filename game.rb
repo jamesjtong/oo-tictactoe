@@ -21,6 +21,7 @@ class Game
       self.turn_owner = @human_player
     end  
 
+    @board.output_board
     turn_owner.make_move
     next_turn
   end
@@ -58,6 +59,7 @@ class Game
     selected_symbol = gets.chomp.upcase
 
     if !["X","O"].include? selected_symbol
+      raise "You must input either 'X' or 'O' here"
       ask_for_symbol
     end
     selected_symbol

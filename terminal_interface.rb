@@ -20,15 +20,11 @@ class TerminalInterface
     end
 
     def ask_player_to_make_move
-      "It is the player's turn; make your move"
+      puts "\nIt is the player's turn; make your move"
     end
 
     def ask_for_symbol
-      puts "What symbol do you want to be 'X' or 'O'? Enter 'x' for 'X' or 'y' for 'Y'"
-    end
-
-    def output_board
-
+      puts "What symbol do you want to be 'X' or 'O'? Enter 'x' for 'X' or 'o' for 'O'"
     end
 
   end
